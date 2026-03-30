@@ -1,0 +1,386 @@
+<!doctype html>
+<html
+  lang="zh-CN"
+  class="layout-navbar-fixed layout-wide"
+  dir="ltr"
+  data-skin="default"
+  data-bs-theme="light"
+  data-assets-path="./assets/"
+  data-template="front-pages">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Super Event | 活动提示</title>
+    <meta name="description" content="Super Event 活动提示页，提示图将从 2026 年 4 月 17 日 20:40 起每 10 分钟放出 2 张。" />
+
+    <link rel="icon" type="image/png" href="./assets/img/super/logo.png" />
+
+    <link rel="stylesheet" href="./assets/vendor/css/core.css" />
+    <link rel="stylesheet" href="./assets/css/demo.css" />
+    <link rel="stylesheet" href="./assets/vendor/css/pages/front-page.css" />
+    <link rel="stylesheet" href="./assets/vendor/css/pages/front-page-landing.css" />
+    <link rel="stylesheet" href="./assets/css/super-event.css" />
+  </head>
+
+  <body>
+    <nav class="layout-navbar shadow-none py-0 super-navbar">
+      <div class="container">
+        <div class="navbar navbar-expand-lg landing-navbar px-3 px-md-8">
+          <div class="navbar-brand app-brand demo d-flex py-0 me-4 me-xl-8 ms-0">
+            <button
+              class="navbar-toggler border-0 px-0 me-4"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#navbarSupportedContent"
+              aria-controls="navbarSupportedContent"
+              aria-expanded="false"
+              aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <a href="./index.html" class="app-brand-link">
+              <span class="app-brand-logo demo">
+                <img src="./assets/img/super/logo.png" alt="Super Event logo" class="super-logo" />
+              </span>
+              <span class="app-brand-text demo menu-text fw-bold ms-2 ps-1">Super Event</span>
+            </a>
+          </div>
+
+          <div class="collapse navbar-collapse landing-nav-menu" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto">
+              <li class="nav-item">
+                <a class="nav-link fw-medium" href="./index.html">活动介绍</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link fw-medium active" href="./tips.html">活动提示</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link fw-medium" href="./signup.html">提交入口</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+     <main class="section-py super-page-shell">
+      <div class="container">
+        <div class="super-page-heading text-center mb-8">
+          <span class="badge bg-label-warning super-badge mb-4">活动提示</span>
+          <h1 class="mb-3" id="tipsHeadingText">&#25552;&#31034;&#22270;&#21363;&#23558;&#35299;&#38145;</h1>
+          <p class="mb-0">
+            每 10 分钟解锁 2 张提示图，共 6 张。点击已解锁的图片可查看大图。
+          </p>
+        </div>
+
+        <div class="card super-glass-card super-tip-status-card mb-8">
+          <div class="card-body p-6 p-md-7">
+            <div class="row g-4 align-items-stretch">
+              <div class="col-lg-4 col-md-6">
+                <div class="super-status-tile h-100">
+                  <span class="super-status-label">当前服务器时间</span>
+                  <strong class="super-status-value" id="serverTimeText">--</strong>
+                  <span class="super-status-note">以接口返回时间为准</span>
+                </div>
+              </div>
+              <div class="col-lg-4 col-md-6">
+                <div class="super-status-tile h-100">
+                  <span class="super-status-label">下一次提示展示</span>
+                  <strong class="super-status-value" id="nextReleaseText">--</strong>
+                  <span class="super-status-note" id="releaseStatusText">等待接口数据...</span>
+                </div>
+              </div>
+              <div class="col-lg-4 col-md-12">
+                <div class="super-status-tile h-100">
+                  <span class="super-status-label">倒计时</span>
+                  <strong class="super-status-value super-countdown" id="countdownText">--:--:--</strong>
+                  <span class="super-status-note" id="progressText">已展示 0 / 6 张</span>
+                </div>
+              </div>
+            </div>
+            <div class="super-api-hint mt-4" id="apiHintText">
+              页面需要通过本地接口访问，请使用 <code>node api/server.js</code> 启动后再打开。
+            </div>
+          </div>
+        </div>
+
+        <div class="row g-6" id="tipsGrid" aria-live="polite"></div>
+      </div>
+    </main>
+
+    <div class="super-lightbox" id="superLightbox" aria-hidden="true">
+      <div class="super-lightbox-backdrop" data-lightbox-close></div>
+      <div class="super-lightbox-dialog" role="dialog" aria-modal="true" aria-labelledby="superLightboxTitle">
+        <button type="button" class="super-lightbox-close" aria-label="关闭" data-lightbox-close>&times;</button>
+        <div class="super-lightbox-header">
+          <h4 class="mb-0" id="superLightboxTitle">图片预览</h4>
+        </div>
+        <div class="super-lightbox-body">
+          <img id="superLightboxImage" src="" alt="活动提示大图" />
+        </div>
+      </div>
+    </div>
+
+    <footer class="landing-footer super-footer">
+      <div class="container">
+        <div class="super-footer-main">
+          <div class="super-footer-brand">
+            <img src="./assets/img/super/logo.png" alt="Super Event logo" class="super-footer-logo" />
+            <div>
+              <h5 class="mb-2 text-white">Super Event</h5>
+              <p class="mb-0">活动开始后每10分钟解锁2张提示图。</p>
+            </div>
+          </div>
+          <div class="super-footer-links">
+            <a href="./index.html">活动介绍</a>
+            <a href="./tips.html">活动提示</a>
+            <a href="./signup.html">提交入口</a>
+          </div>
+        </div>
+        <div class="super-footer-bottom">&copy; 2026 Super Event</div>
+      </div>
+    </footer>
+
+    <script src="./assets/vendor/libs/popper/popper.js"></script>
+    <script src="./assets/vendor/js/bootstrap.js"></script>
+    <script>
+      window.addEventListener('scroll', function () {
+        const nav = document.querySelector('.super-navbar');
+        if (window.scrollY > 10) nav.classList.add('navbar-active');
+        else nav.classList.remove('navbar-active');
+      });
+
+      document.addEventListener('contextmenu', function (event) {
+        event.preventDefault();
+      });
+
+      document.addEventListener('dragstart', function (event) {
+        if (event.target.tagName === 'IMG') {
+          event.preventDefault();
+        }
+      });
+
+      document.addEventListener('keydown', function (event) {
+        const blocked =
+          event.key === 'F12' ||
+          (event.ctrlKey && ['s', 'u', 'p'].includes(event.key.toLowerCase())) ||
+          (event.ctrlKey && event.shiftKey && ['i', 'j', 'c'].includes(event.key.toLowerCase()));
+
+        if (blocked) {
+          event.preventDefault();
+        }
+      });
+
+      (function () {
+        const API_ENDPOINT = '/api';
+        const displayFormatter = new Intl.DateTimeFormat('zh-CN', {
+          timeZone: 'Asia/Shanghai',
+          year: 'numeric',
+          month: '2-digit',
+          day: '2-digit',
+          hour: '2-digit',
+          minute: '2-digit',
+          second: '2-digit',
+          hour12: false
+        });
+
+        const tipsHeadingText = document.getElementById('tipsHeadingText');
+        const serverTimeText = document.getElementById('serverTimeText');
+        const nextReleaseText = document.getElementById('nextReleaseText');
+        const releaseStatusText = document.getElementById('releaseStatusText');
+        const countdownText = document.getElementById('countdownText');
+        const progressText = document.getElementById('progressText');
+        const apiHintText = document.getElementById('apiHintText');
+        const tipsGrid = document.getElementById('tipsGrid');
+        const lightbox = document.getElementById('superLightbox');
+        const lightboxImage = document.getElementById('superLightboxImage');
+        const lightboxTitle = document.getElementById('superLightboxTitle');
+        const closeTargets = document.querySelectorAll('[data-lightbox-close]');
+
+        let latestPayload = null;
+        let serverOffsetMs = 0;
+        let fetchInFlight = false;
+
+        function formatDateTime(timestamp) {
+          return displayFormatter.format(new Date(timestamp));
+        }
+
+        function formatCountdown(ms) {
+          const safeMs = Math.max(0, ms);
+          const totalSeconds = Math.floor(safeMs / 1000);
+          const days = Math.floor(totalSeconds / 86400);
+          const hours = Math.floor((totalSeconds % 86400) / 3600);
+          const minutes = Math.floor((totalSeconds % 3600) / 60);
+          const seconds = totalSeconds % 60;
+          const timePart = [hours, minutes, seconds]
+            .map(function (value) {
+              return String(value).padStart(2, '0');
+            })
+            .join(':');
+
+          return days > 0 ? days + '天 ' + timePart : timePart;
+        }
+
+        function getServerNowMs() {
+          return Date.now() + serverOffsetMs;
+        }
+
+        function openLightbox(imageSrc, imageTitle) {
+          lightboxImage.src = imageSrc;
+          lightboxTitle.textContent = imageTitle;
+          lightbox.classList.add('is-open');
+          lightbox.setAttribute('aria-hidden', 'false');
+          document.body.classList.add('super-lightbox-open');
+        }
+
+        function closeLightbox() {
+          lightbox.classList.remove('is-open');
+          lightbox.setAttribute('aria-hidden', 'true');
+          document.body.classList.remove('super-lightbox-open');
+          lightboxImage.src = '';
+        }
+
+        function renderTips(payload) {
+          const releasedCount = payload.visibleTips.length;
+          const hiddenCount = payload.totalTips - releasedCount;
+          const fragments = [];
+
+          payload.visibleTips.forEach(function (tip) {
+            fragments.push(`
+              <div class="col-lg-4 col-md-6">
+                <div class="card super-tip-card h-100">
+                  <button type="button" class="super-tip-trigger" data-image="${tip.imagePath}" data-title="${tip.title}">
+                    <img src="${tip.imagePath}" alt="${tip.title}" class="img-fluid rounded-top-4" />
+                  </button>
+                  <div class="card-body">
+                    <h5 class="mb-1">${tip.title}</h5>
+                    <p class="mb-0">${tip.description}</p>
+                  </div>
+                </div>
+              </div>`);
+          });
+
+          for (let index = 0; index < hiddenCount; index += 1) {
+            const order = releasedCount + index + 1;
+            fragments.push(`
+              <div class="col-lg-4 col-md-6">
+                <div class="card super-tip-card super-tip-card-locked h-100">
+                  <div class="super-tip-locked-media">
+                    <span class="super-tip-lock-icon">${String(order).padStart(2, '0')}</span>
+                  </div>
+                  <div class="card-body">
+                    <h5 class="mb-1">提示 ${String(order).padStart(2, '0')} 待解锁</h5>
+                    <p class="mb-0">该提示图会按照服务器时间自动放出。</p>
+                  </div>
+                </div>
+              </div>`);
+          }
+
+          tipsGrid.innerHTML = fragments.join('');
+        }
+
+        function updateStatusText() {
+          if (!latestPayload) {
+            return;
+          }
+          const nowMs = getServerNowMs();
+          const progressLabel = latestPayload.releasedCount + ' / ' + latestPayload.totalTips;
+          serverTimeText.textContent = formatDateTime(nowMs);
+          progressText.textContent = '\u5df2\u5c55\u793a ' + progressLabel;
+
+          if (latestPayload.releasedCount > 0) {
+            tipsHeadingText.textContent = '\u63d0\u793a\u56fe\u5df2\u89e3\u9501 ' + progressLabel;
+          } else {
+            tipsHeadingText.textContent = '\u63d0\u793a\u56fe\u5373\u5c06\u89e3\u9501';
+          }
+
+          if (!latestPayload.nextReleaseAtMs) {
+            tipsHeadingText.textContent = '\u63d0\u793a\u56fe\u5df2\u5168\u90e8\u89e3\u9501 ' + progressLabel;
+            nextReleaseText.textContent = '\u672c\u8f6e\u5df2\u5168\u90e8\u5c55\u793a';
+            countdownText.textContent = '00:00:00';
+            releaseStatusText.textContent = '\u5168\u90e8 6 \u5f20\u63d0\u793a\u56fe\u5df2\u653e\u51fa\uff0c\u53ef\u4ee5\u76f4\u63a5\u67e5\u770b\u3002';
+            return;
+          
+          }
+
+          nextReleaseText.textContent = formatDateTime(latestPayload.nextReleaseAtMs);
+          const diffMs = latestPayload.nextReleaseAtMs - nowMs;
+          countdownText.textContent = formatCountdown(diffMs);
+
+          if (latestPayload.status === 'pending') {
+            releaseStatusText.textContent = '首轮将在 2026-04-17 20:40（UTC+8）放出第 1、2 张提示图。';
+          } else {
+            releaseStatusText.textContent = '下一轮会再解锁 2 张提示图。';
+          }
+
+          if (diffMs <= 0 && !fetchInFlight) {
+            fetchTips();
+          }
+        }
+
+        function showApiHint(message, isError) {
+          apiHintText.textContent = message;
+          apiHintText.classList.toggle('is-error', Boolean(isError));
+        }
+
+        async function fetchTips() {
+          if (fetchInFlight) {
+            return;
+          }
+
+          fetchInFlight = true;
+
+          try {
+            const response = await fetch(API_ENDPOINT, { cache: 'no-store' });
+            if (!response.ok) {
+              throw new Error('接口返回异常：' + response.status);
+            }
+
+            const payload = await response.json();
+            latestPayload = payload;
+            serverOffsetMs = payload.serverTimeMs - Date.now();
+            renderTips(payload);
+            updateStatusText();
+            showApiHint('当前页已接入后端接口，图片是否可见由服务器时间控制。', false);
+          } catch (error) {
+            showApiHint('接口不可用，请先在当前目录执行 node api/server.js 再访问本页。', true);
+            releaseStatusText.textContent = '暂时无法获取接口数据';
+            countdownText.textContent = '--:--:--';
+          } finally {
+            fetchInFlight = false;
+          }
+        }
+
+        tipsGrid.addEventListener('click', function (event) {
+          const trigger = event.target.closest('.super-tip-trigger');
+          if (!trigger) {
+            return;
+          }
+
+          openLightbox(trigger.dataset.image, trigger.dataset.title || '图片预览');
+        });
+
+        closeTargets.forEach(function (item) {
+          item.addEventListener('click', closeLightbox);
+        });
+
+        document.addEventListener('keydown', function (event) {
+          if (event.key === 'Escape' && lightbox.classList.contains('is-open')) {
+            closeLightbox();
+          }
+        });
+
+        if (window.location.protocol === 'file:') {
+          showApiHint('你现在是直接打开 HTML 文件，/api 不会生效。请使用 node api/server.js 启动后访问 http://localhost:3000/tips.html。', true);
+          return;
+        }
+
+        fetchTips();
+        window.setInterval(updateStatusText, 1000);
+        window.setInterval(fetchTips, 30000);
+      })();
+    </script>
+  </body>
+</html>
