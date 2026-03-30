@@ -3,7 +3,7 @@ const fs = require("fs");
 const path = require("path");
 
 const HOST = "0.0.0.0";
-const PORT = Number(process.env.PORT || 3000);
+const PORT = Number(process.env.PORT || 5999);
 const ROOT_DIR = path.resolve(__dirname, "..");
 const EVENT_TIME_ZONE = "Asia/Shanghai";
 const RELEASE_START_AT_MS = Date.parse("2026-04-17T20:40:00+08:00");

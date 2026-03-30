@@ -100,10 +100,11 @@
                 </div>
               </div>
             </div>
-            <div class="super-api-hint mt-4" id="apiHintText">
-              页面需要通过本地接口访问，请使用 <code>node api/server.js</code> 启动后再打开。
-            </div>
           </div>
+        </div>
+
+        <div class="super-api-hint mt-4" id="apiHintText">
+          页面需要通过本地接口访问，请使用 <code>node api/server.js</code> 启动后再打开。
         </div>
 
         <div class="row g-6" id="tipsGrid" aria-live="polite"></div>
@@ -146,6 +147,70 @@
     <script src="./assets/vendor/libs/popper/popper.js"></script>
     <script src="./assets/vendor/js/bootstrap.js"></script>
     <script>
+      (function () {
+        const menu = document.getElementById('navbarSupportedContent');
+        const toggler = document.querySelector('[data-bs-target="#navbarSupportedContent"]');
+        const navbar = document.querySelector('.super-navbar');
+
+        if (!menu || !toggler || !navbar || !window.bootstrap) {
+          return;
+        }
+
+        const collapse = bootstrap.Collapse.getOrCreateInstance(menu, { toggle: false });
+
+        function updateMenuOffset() {
+          const navbarRect = navbar.getBoundingClientRect();
+          document.documentElement.style.setProperty('--landing-menu-top', navbarRect.bottom + 'px');
+        }
+
+        function setMenuOpenState(isOpen) {
+          updateMenuOffset();
+          toggler.setAttribute('aria-expanded', String(isOpen));
+        }
+
+        menu.addEventListener('shown.bs.collapse', function () {
+          setMenuOpenState(true);
+        });
+
+        menu.addEventListener('hidden.bs.collapse', function () {
+          setMenuOpenState(false);
+        });
+
+        menu.querySelectorAll('.nav-link').forEach(function (link) {
+          link.addEventListener('click', function () {
+            if (window.innerWidth < 992) {
+              collapse.hide();
+            }
+          });
+        });
+
+        window.addEventListener('resize', function () {
+          updateMenuOffset();
+        });
+
+        window.addEventListener('scroll', updateMenuOffset, { passive: true });
+
+        document.addEventListener('click', function (event) {
+          if (window.innerWidth >= 992 || !menu.classList.contains('show')) {
+            return;
+          }
+
+          if (menu.contains(event.target) || toggler.contains(event.target)) {
+            return;
+          }
+
+          collapse.hide();
+        });
+
+        document.addEventListener('keydown', function (event) {
+          if (event.key === 'Escape' && menu.classList.contains('show')) {
+            collapse.hide();
+          }
+        });
+
+        updateMenuOffset();
+      })();
+
       window.addEventListener('scroll', function () {
         const nav = document.querySelector('.super-navbar');
         if (window.scrollY > 10) nav.classList.add('navbar-active');
@@ -225,6 +290,11 @@
 
         function getServerNowMs() {
           return Date.now() + serverOffsetMs;
+        }
+
+        function showApiHint(message, isError) {
+          apiHintText.textContent = message;
+          apiHintText.classList.toggle('is-error', Boolean(isError));
         }
 
         function openLightbox(imageSrc, imageTitle) {
@@ -318,11 +388,6 @@
           if (diffMs <= 0 && !fetchInFlight) {
             fetchTips();
           }
-        }
-
-        function showApiHint(message, isError) {
-          apiHintText.textContent = message;
-          apiHintText.classList.toggle('is-error', Boolean(isError));
         }
 
         async function fetchTips() {

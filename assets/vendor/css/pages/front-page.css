@@ -159,7 +159,7 @@ nav.layout-navbar .navbar.landing-navbar .navbar-nav .nav-link:hover {
     z-index: 9999;
     display: block;
     padding: 1rem;
-    block-size: 100%;
+    block-size: 120%;
     inline-size: 80%;
     inset-block-start: 0;
     inset-inline-start: -100%;
