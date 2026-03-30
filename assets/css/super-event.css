@@ -242,7 +242,7 @@ img {
 }
 
 .scrollspy-example > section:first-child {
-  padding-top: 6.25rem;
+  padding-top: 6.25rem !important;
   padding-bottom: 3.25rem;
 }
 
