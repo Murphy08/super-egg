@@ -144,34 +144,71 @@ nav.layout-navbar .navbar.landing-navbar .navbar-nav .nav-link:hover {
 }
 @media (max-width: 991.98px) {
   nav.layout-navbar .navbar.landing-navbar .landing-menu-overlay {
-    position: fixed;
-    z-index: 9998;
     display: none;
-    background-color: rgba(var(--bs-black-rgb), 0.78);
-    block-size: 100%;
-    inline-size: 100%;
-    inset-block-start: 0;
-    inset-inline-start: 0;
-    transition: all 0.2s ease-in-out;
   }
   nav.layout-navbar .navbar.landing-navbar .landing-nav-menu {
     position: fixed;
     z-index: 9999;
     display: block;
-    padding: 1rem;
-    block-size: 120%;
-    inline-size: 80%;
-    inset-block-start: 0;
-    inset-inline-start: -100%;
-    max-inline-size: 300px;
-    overflow-y: auto;
-    transition: all 0.3s ease-in-out;
+    padding: 1rem 1rem 1.25rem;
+    block-size: auto;
+    inline-size: var(--landing-menu-width, calc(100vw - 2rem));
+    inset-block-start: var(--landing-menu-top, 5rem);
+    inset-inline-start: var(--landing-menu-left, 1rem);
+    max-inline-size: var(--landing-menu-width, calc(100vw - 2rem));
+    overflow: visible;
+    border-radius: 1.25rem;
+    transition: none;
+    transform: translate3d(-2.75rem, 0, 0);
+    transform-origin: left center;
+    opacity: 0;
+    will-change: transform, opacity;
+  }
+  nav.layout-navbar .navbar.landing-navbar .landing-nav-menu.collapse:not(.show) {
+    display: none;
+  }
+  nav.layout-navbar .navbar.landing-navbar .landing-nav-menu.collapsing {
+    height: auto !important;
+    overflow: visible;
+    transition: none;
+  }
+  nav.layout-navbar .navbar.landing-navbar .landing-nav-menu.collapsing,
+  nav.layout-navbar .navbar.landing-navbar .landing-nav-menu.show {
+    block-size: auto;
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+    animation: landingMenuSlideIn 0.46s cubic-bezier(0.2, 0.95, 0.24, 1.12);
+  }
+  nav.layout-navbar .navbar.landing-navbar .landing-nav-menu .navbar-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+  nav.layout-navbar .navbar.landing-navbar .landing-nav-menu .nav-link {
+    display: block;
+    margin-inline-end: 0;
+    padding: 0.9rem 1rem;
+    border-radius: 0.95rem;
   }
   nav.layout-navbar .navbar.landing-navbar .landing-nav-menu.show {
     inset-inline-start: 0;
   }
   nav.layout-navbar .navbar.landing-navbar .landing-nav-menu.show ~ .landing-menu-overlay {
     display: block;
+  }
+}
+@keyframes landingMenuSlideIn {
+  0% {
+    opacity: 0;
+    transform: translate3d(-3.5rem, 0, 0);
+  }
+  72% {
+    opacity: 1;
+    transform: translate3d(0.65rem, 0, 0);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
   }
 }
 nav.layout-navbar.navbar-active::before {

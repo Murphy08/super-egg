@@ -116,8 +116,9 @@
         const menu = document.getElementById('navbarSupportedContent');
         const toggler = document.querySelector('[data-bs-target="#navbarSupportedContent"]');
         const navbar = document.querySelector('.super-navbar');
+        const landingNavbar = document.querySelector('.super-navbar .landing-navbar');
 
-        if (!menu || !toggler || !navbar || !window.bootstrap) {
+        if (!menu || !toggler || !navbar || !landingNavbar || !window.bootstrap) {
           return;
         }
 
@@ -125,7 +126,10 @@
 
         function updateMenuOffset() {
           const navbarRect = navbar.getBoundingClientRect();
+          const landingNavbarRect = landingNavbar.getBoundingClientRect();
           document.documentElement.style.setProperty('--landing-menu-top', navbarRect.bottom + 'px');
+          document.documentElement.style.setProperty('--landing-menu-left', landingNavbarRect.left + 'px');
+          document.documentElement.style.setProperty('--landing-menu-width', landingNavbarRect.width + 'px');
         }
 
         function setMenuOpenState(isOpen) {
