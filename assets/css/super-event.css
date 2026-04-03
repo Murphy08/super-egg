@@ -293,6 +293,23 @@ img {
   background: linear-gradient(135deg, rgba(247, 176, 127, 0.35), rgba(255, 255, 255, 0.72));
 }
 
+.super-prize-panel .card-body {
+  padding-top: 1.35rem !important;
+  padding-bottom: 1.35rem !important;
+}
+
+.super-prize-strip {
+  display: flex;
+  flex: 1;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.super-prize-strip .prize-rank {
+  flex: 1 1 220px;
+  margin-top: 0;
+}
+
 .super-section-tag {
   display: inline-flex;
   align-items: center;
@@ -323,16 +340,37 @@ img {
   position: relative;
 }
 
+.super-enter-float {
+  animation: super-enter-float-up 0.65s ease-out both;
+}
+
+@keyframes super-enter-float-up {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 24px, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .super-enter-float {
+    animation: none;
+  }
+}
+
 .super-horizontal-stage {
   position: relative;
-  min-height: 100vh;
+  min-height: auto;
 }
 
 .super-horizontal-track {
-  display: flex;
-  align-items: stretch;
-  width: max-content;
-  min-height: 100vh;
+  display: block;
+  width: 100%;
+  min-height: auto;
 }
 
 .super-hero-section {
@@ -362,19 +400,17 @@ img {
 }
 
 .super-scroll-section {
-  --section-overlay-opacity: 0.26;
   position: relative;
   display: flex;
   align-items: center;
-  min-height: 100vh;
+  min-height: auto;
   padding-top: 7rem !important;
   padding-bottom: 4rem !important;
-  overflow: clip;
+  overflow: visible;
 }
 
 .super-panel {
-  flex: 0 0 100vw;
-  width: 100vw;
+  width: 100%;
 }
 
 .super-scroll-section::before {
@@ -416,7 +452,6 @@ img {
   position: relative;
   z-index: 1;
   width: 100%;
-  will-change: transform, opacity;
 }
 
 .scrollspy-example > section {
@@ -707,6 +742,10 @@ img {
   .super-footer-main {
     flex-direction: column;
     align-items: flex-start;
+  }
+
+  .super-prize-strip {
+    width: 100%;
   }
 }
 
