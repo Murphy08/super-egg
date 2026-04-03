@@ -111,6 +111,52 @@ img {
   color: #6c5c78;
 }
 
+.super-visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.gooey-container {
+  position: relative;
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.gooey-filter-svg {
+  position: absolute;
+  width: 0;
+  height: 0;
+}
+
+.gooey-wrapper {
+  position: relative;
+  min-width: min(100%, 680px);
+  filter: url(#threshold);
+}
+
+.gooey-text {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  font-size: clamp(2.6rem, 5vw, 4.25rem);
+  font-weight: 800;
+  line-height: 1.1;
+  color: var(--super-deep);
+  white-space: nowrap;
+  user-select: none;
+  letter-spacing: 0.01em;
+}
+
 .super-hero-card {
   position: relative;
   height: min(72vh, 760px);
@@ -676,6 +722,19 @@ img {
 
   .hero-subtitle {
     font-size: 1rem;
+  }
+
+  .gooey-container {
+    height: 156px;
+  }
+
+  .gooey-wrapper {
+    min-width: 100%;
+  }
+
+  .gooey-text {
+    font-size: clamp(2rem, 8vw, 3rem);
+    white-space: normal;
   }
 
   .super-scroll-section::before {

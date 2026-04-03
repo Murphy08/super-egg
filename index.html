@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html
   lang="zh-CN"
   class="layout-navbar-fixed layout-wide"
@@ -13,7 +13,7 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
     <meta name="robots" content="noindex, nofollow" />
-    <title>Super CC | 复活节彩蛋活动指南</title>
+    <title>Super CC | 复活节彩蛋狩猎活动指南</title>
     <meta
       name="description"
       content="Super CC 复活节彩蛋活动指南，包含活动时间、服务器信息、参与规则、提交要求与奖品说明。" />
@@ -72,8 +72,28 @@
         <div class="container">
           <div class="row align-items-center gy-8 super-hero-grid">
             <div class="col-lg-6 super-hero-copy">
-              <span class="badge bg-label-primary super-badge mb-4">Euro Truck Simulator 2 / TMP</span>
-              <h1 class="display-4 fw-extrabold mb-4 text-heading">Super CC 复活节彩蛋活动指南</h1>
+              <span class="badge bg-label-primary super-badge mb-4">Euro Truck Simulator 2 / TruckersMP</span>
+              <h1 class="super-visually-hidden">Super CC 复活节彩蛋活动指南</h1>
+              <div class="gooey-container mb-4" aria-hidden="true">
+                <svg class="gooey-filter-svg" focusable="false" aria-hidden="true">
+                  <defs>
+                    <filter id="threshold">
+                      <feColorMatrix
+                        in="SourceGraphic"
+                        type="matrix"
+                        values="1 0 0 0 0
+                                0 1 0 0 0
+                                0 0 1 0 0
+                                0 0 0 255 -140" />
+                    </filter>
+                  </defs>
+                </svg>
+
+                <div class="gooey-wrapper">
+                  <span id="text1" class="gooey-text"></span>
+                  <span id="text2" class="gooey-text"></span>
+                </div>
+              </div>
               <p class="hero-subtitle mb-6">
                 今年，一些调皮的兔子带着我们的复活节彩蛋逃跑了，并将它们藏在没人能找到的地方。现在，我们需要猎蛋人来帮助我们，以免为时已晚。
                 2026 年 4 月 17 日晚，欢迎加入 Super CC 复活节彩蛋活动，在限定区域内完成这场速度、路线与观察力的挑战。
@@ -488,27 +508,46 @@
             return;
           }
 
-          const stageTween = gsap.to(horizontalTrack, {
-            x: function () {
-              return -(horizontalTrack.scrollWidth - window.innerWidth);
-            },
-            ease: 'none',
+          const stageTimeline = gsap.timeline({
             scrollTrigger: {
               trigger: horizontalStage,
               start: 'top top',
               end: function () {
-                return '+=' + Math.max(1, horizontalTrack.scrollWidth - window.innerWidth);
+                return '+=' + window.innerWidth * (panels.length + 0.9);
               },
               pin: true,
-              scrub: 1,
+              scrub: 0.55,
               anticipatePin: 1,
               invalidateOnRefresh: true,
-              snap: panels.length > 1 ? 1 / (panels.length - 1) : false,
+              snap: {
+                snapTo: 'labelsDirectional',
+                duration: { min: 0.22, max: 0.5 },
+                delay: 0.04,
+                ease: 'power2.inOut'
+              },
               onUpdate: function (self) {
                 const activeIndex = Math.min(panels.length - 1, Math.round(self.progress * (panels.length - 1)));
                 document.body.setAttribute('data-section-theme', String(activeIndex + 1));
               }
             }
+          });
+
+          stageTimeline.addLabel('panel-0').to({}, { duration: 0.42 });
+
+          panels.forEach(function (_, index) {
+            if (index === 0) {
+              return;
+            }
+
+            stageTimeline
+              .addLabel('panel-' + index)
+              .to(horizontalTrack, {
+                x: function () {
+                  return -window.innerWidth * index;
+                },
+                duration: 1,
+                ease: 'power2.inOut'
+              });
           });
 
           panels.forEach(function (panel) {
@@ -525,7 +564,7 @@
                 ease: 'power2.out',
                 scrollTrigger: {
                   trigger: panel,
-                  containerAnimation: stageTween,
+                  containerAnimation: stageTimeline,
                   start: 'left 75%',
                   end: 'left 35%',
                   scrub: true
@@ -543,7 +582,7 @@
               ease: 'power2.out',
               scrollTrigger: {
                 trigger: panel,
-                containerAnimation: stageTween,
+                containerAnimation: stageTimeline,
                 start: 'left 82%',
                 end: 'center center',
                 scrub: true
@@ -551,6 +590,83 @@
             });
           });
         }
+
+        (function () {
+          const texts = ['Super Event CC', '复活节', '彩蛋狩猎', '活动指南'];
+          const text1 = document.getElementById('text1');
+          const text2 = document.getElementById('text2');
+
+          if (!text1 || !text2) {
+            return;
+          }
+
+          let textIndex = texts.length - 1;
+          let time = new Date();
+          let morph = 0;
+          let cooldown = 0.25;
+
+          const morphTime = 1;
+          const cooldownTime = 0.25;
+
+          function setMorph(fraction) {
+            text2.style.filter = 'blur(' + Math.min(8 / fraction - 8, 100) + 'px)';
+            text2.style.opacity = String(Math.pow(fraction, 0.4));
+
+            fraction = 1 - fraction;
+            text1.style.filter = 'blur(' + Math.min(8 / fraction - 8, 100) + 'px)';
+            text1.style.opacity = String(Math.pow(fraction, 0.4));
+          }
+
+          function doCooldown() {
+            morph = 0;
+            text2.style.filter = '';
+            text2.style.opacity = '1';
+            text1.style.filter = '';
+            text1.style.opacity = '0';
+          }
+
+          function doMorph() {
+            morph -= cooldown;
+            cooldown = 0;
+
+            let fraction = morph / morphTime;
+
+            if (fraction > 1) {
+              cooldown = cooldownTime;
+              fraction = 1;
+            }
+
+            setMorph(fraction);
+          }
+
+          function animate() {
+            requestAnimationFrame(animate);
+
+            const newTime = new Date();
+            const dt = (newTime - time) / 1000;
+            time = newTime;
+
+            const shouldIncrement = cooldown > 0;
+
+            cooldown -= dt;
+
+            if (cooldown <= 0) {
+              if (shouldIncrement) {
+                textIndex = (textIndex + 1) % texts.length;
+                text1.textContent = texts[textIndex];
+                text2.textContent = texts[(textIndex + 1) % texts.length];
+              }
+
+              doMorph();
+            } else {
+              doCooldown();
+            }
+          }
+
+          text1.textContent = texts[textIndex];
+          text2.textContent = texts[(textIndex + 1) % texts.length];
+          animate();
+        })();
       })();
     </script>
   </body>
