@@ -20,6 +20,35 @@ body {
     radial-gradient(circle at top left, rgba(255, 230, 167, 0.7), transparent 26%),
     radial-gradient(circle at top right, rgba(163, 214, 110, 0.35), transparent 24%),
     linear-gradient(180deg, #fffaf3 0%, #fff2e9 42%, #fffaf6 100%);
+  transition: background 0.8s ease;
+}
+
+body[data-section-theme="1"] {
+  background:
+    radial-gradient(circle at top left, rgba(255, 224, 151, 0.68), transparent 24%),
+    radial-gradient(circle at top right, rgba(170, 220, 118, 0.3), transparent 22%),
+    linear-gradient(180deg, #fff8ef 0%, #fff1e6 46%, #fff9f4 100%);
+}
+
+body[data-section-theme="2"] {
+  background:
+    radial-gradient(circle at top left, rgba(255, 210, 136, 0.62), transparent 24%),
+    radial-gradient(circle at top right, rgba(145, 194, 243, 0.24), transparent 24%),
+    linear-gradient(180deg, #fff4ea 0%, #ffe9e1 45%, #fff7f1 100%);
+}
+
+body[data-section-theme="3"] {
+  background:
+    radial-gradient(circle at top left, rgba(255, 194, 182, 0.5), transparent 24%),
+    radial-gradient(circle at top right, rgba(190, 222, 164, 0.26), transparent 23%),
+    linear-gradient(180deg, #fff3ef 0%, #fff0e6 42%, #fff8f5 100%);
+}
+
+body[data-section-theme="4"] {
+  background:
+    radial-gradient(circle at top left, rgba(255, 216, 90, 0.42), transparent 24%),
+    radial-gradient(circle at top right, rgba(255, 142, 161, 0.18), transparent 24%),
+    linear-gradient(180deg, #fff5ef 0%, #ffe8e7 45%, #fffaf7 100%);
 }
 
 img {
@@ -84,10 +113,12 @@ img {
 
 .super-hero-card {
   position: relative;
+  height: min(72vh, 760px);
   padding: 1rem;
   border-radius: 2rem;
   background: linear-gradient(145deg, rgba(255, 255, 255, 0.92), rgba(255, 240, 226, 0.9));
   box-shadow: var(--super-shadow);
+  overflow: hidden;
 }
 
 .super-hero-card::before {
@@ -97,6 +128,12 @@ img {
   border: 2px dashed rgba(148, 195, 86, 0.35);
   border-radius: 2.3rem;
   z-index: -1;
+}
+
+.super-hero-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .super-stat-card,
@@ -236,23 +273,123 @@ img {
   padding-top: 9rem;
 }
 
+.super-scroll-shell {
+  position: relative;
+}
+
+.super-horizontal-stage {
+  position: relative;
+  min-height: 100vh;
+}
+
+.super-horizontal-track {
+  display: flex;
+  align-items: stretch;
+  width: max-content;
+  min-height: 100vh;
+}
+
+.super-hero-section {
+  display: flex;
+  align-items: center;
+  min-height: 100vh;
+  padding-top: 7rem !important;
+  padding-bottom: 3rem !important;
+}
+
+.super-hero-grid {
+  min-height: calc(100vh - 10rem);
+}
+
+.super-hero-copy {
+  position: relative;
+  z-index: 2;
+}
+
+.super-hero-media {
+  position: relative;
+}
+
+.super-hero-stats .super-stat-card {
+  height: 100%;
+  min-height: 132px;
+}
+
+.super-scroll-section {
+  --section-overlay-opacity: 0.26;
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-height: 100vh;
+  padding-top: 7rem !important;
+  padding-bottom: 4rem !important;
+  overflow: clip;
+}
+
+.super-panel {
+  flex: 0 0 100vw;
+  width: 100vw;
+}
+
+.super-scroll-section::before {
+  content: "";
+  position: absolute;
+  inset: 6% 4%;
+  border-radius: 2.5rem;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.45), rgba(255, 255, 255, 0.1));
+  opacity: var(--section-overlay-opacity);
+  filter: blur(0);
+  pointer-events: none;
+}
+
+.super-section-intro::before {
+  background:
+    radial-gradient(circle at top left, rgba(255, 216, 90, 0.22), transparent 34%),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.5), rgba(255, 241, 230, 0.18));
+}
+
+.super-section-timeline::before {
+  background:
+    radial-gradient(circle at top right, rgba(239, 127, 50, 0.16), transparent 34%),
+    linear-gradient(135deg, rgba(255, 250, 246, 0.48), rgba(255, 224, 210, 0.16));
+}
+
+.super-section-details::before {
+  background:
+    radial-gradient(circle at top left, rgba(148, 195, 86, 0.16), transparent 34%),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.46), rgba(244, 245, 228, 0.16));
+}
+
+.super-section-faq::before {
+  background:
+    radial-gradient(circle at top right, rgba(255, 142, 161, 0.14), transparent 34%),
+    linear-gradient(135deg, rgba(255, 252, 248, 0.5), rgba(255, 232, 238, 0.18));
+}
+
+.super-scroll-content {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  will-change: transform, opacity;
+}
+
 .scrollspy-example > section {
   padding-top: 4rem;
   padding-bottom: 4rem;
 }
 
 .scrollspy-example > section:first-child {
-  padding-top: 6.25rem !important;
+  padding-top: 7rem !important;
   padding-bottom: 3.25rem;
 }
 
 .scrollspy-example > .section-py {
-  padding-top: 3rem !important;
-  padding-bottom: 3rem !important;
+  padding-top: 7rem !important;
+  padding-bottom: 4rem !important;
 }
 
 .scrollspy-example > .section-py.pt-0 {
-  padding-top: 1.5rem !important;
+  padding-top: 7rem !important;
 }
 
 .scrollspy-example .card-body.p-6,
@@ -377,7 +514,7 @@ img {
 }
 
 .super-footer {
-  margin-top: 4rem;
+  margin-top: 0;
   color: rgba(88, 55, 77, 0.78);
   background:
     radial-gradient(circle at top left, rgba(255, 216, 90, 0.55), transparent 24%),
@@ -484,8 +621,41 @@ img {
     padding-top: 7.5rem;
   }
 
+  .super-hero-section,
+  .super-scroll-section {
+    min-height: auto;
+    padding-top: 6.5rem !important;
+    padding-bottom: 3rem !important;
+  }
+
+  .super-horizontal-stage {
+    min-height: auto;
+  }
+
+  .super-horizontal-track {
+    display: block;
+    width: 100%;
+    min-height: auto;
+  }
+
+  .super-panel {
+    width: 100%;
+  }
+
+  .super-hero-grid {
+    min-height: auto;
+  }
+
+  .super-hero-card {
+    height: auto;
+  }
+
+  .super-hero-card img {
+    aspect-ratio: 16 / 11;
+  }
+
   .scrollspy-example > section:first-child {
-    padding-top: 5.5rem;
+    padding-top: 6.5rem;
   }
 
   .super-footer-main {
@@ -508,8 +678,17 @@ img {
     font-size: 1rem;
   }
 
+  .super-scroll-section::before {
+    inset: 3% 0;
+    border-radius: 1.6rem;
+  }
+
+  .super-hero-stats .super-stat-card {
+    min-height: 110px;
+  }
+
   .scrollspy-example > section:first-child {
-    padding-top: 5rem;
+    padding-top: 6rem;
     padding-bottom: 2.5rem;
   }
 
@@ -627,4 +806,15 @@ img {
   .super-tip-locked-media {
     min-height: 220px;
   }
+}
+
+.super-bullet-list {
+  margin: 0;
+  padding-left: 1.2rem;
+  color: #685972;
+  line-height: 1.95;
+}
+
+.super-bullet-list li + li {
+  margin-top: 0.6rem;
 }

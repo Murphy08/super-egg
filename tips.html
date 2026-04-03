@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html
   lang="zh-CN"
   class="layout-navbar-fixed layout-wide"
@@ -13,8 +13,10 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
     <meta name="robots" content="noindex, nofollow" />
-    <title>Super Event | 活动提示</title>
-    <meta name="description" content="Super Event 活动提示页，提示图将从 2026 年 4 月 17 日 20:40 起每 10 分钟放出 2 张。" />
+    <title>Super CC | 提示图</title>
+    <meta
+      name="description"
+      content="Super CC 复活节彩蛋活动提示图页，提示图将于 2026 年 4 月 17 日 20:40 起每 10 分钟放出 2 张。" />
 
     <link rel="icon" type="image/png" href="./assets/img/super/logo.png" />
 
@@ -42,19 +44,19 @@
             </button>
             <a href="./index.html" class="app-brand-link">
               <span class="app-brand-logo demo">
-                <img src="./assets/img/super/logo.png" alt="Super Event logo" class="super-logo" />
+                <img src="./assets/img/super/logo.png" alt="Super CC logo" class="super-logo" />
               </span>
-              <span class="app-brand-text demo menu-text fw-bold ms-2 ps-1">Super Event</span>
+              <span class="app-brand-text demo menu-text fw-bold ms-2 ps-1">Super CC</span>
             </a>
           </div>
 
           <div class="collapse navbar-collapse landing-nav-menu" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto">
               <li class="nav-item">
-                <a class="nav-link fw-medium" href="./index.html">活动介绍</a>
+                <a class="nav-link fw-medium" href="./index.html">活动指南</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link fw-medium active" href="./tips.html">活动提示</a>
+                <a class="nav-link fw-medium active" href="./tips.html">提示图</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link fw-medium" href="./signup.html">提交入口</a>
@@ -65,43 +67,77 @@
       </div>
     </nav>
 
-     <main class="section-py super-page-shell">
+    <main class="section-py super-page-shell">
       <div class="container">
         <div class="super-page-heading text-center mb-8">
-          <span class="badge bg-label-warning super-badge mb-4">活动提示</span>
-          <h1 class="mb-3" id="tipsHeadingText">&#25552;&#31034;&#22270;&#21363;&#23558;&#35299;&#38145;</h1>
+          <span class="badge bg-label-warning super-badge mb-4">提示图放出</span>
+          <h1 class="mb-3" id="tipsHeadingText">提示图即将解锁</h1>
           <p class="mb-0">
-            每 10 分钟解锁 2 张提示图，共 6 张。点击已解锁的图片可查看大图。
+            提示图将从 2026 年 4 月 17 日 20:40 开始放出。后端按服务器时间控制节奏，每 10 分钟解锁 2 张，共 6 张。
           </p>
         </div>
 
-        <div class="card super-glass-card super-tip-status-card mb-8">
-          <div class="card-body p-6 p-md-7">
-            <div class="row g-4 align-items-stretch">
-              <div class="col-lg-4 col-md-6">
-                <div class="super-status-tile h-100">
-                  <span class="super-status-label">当前服务器时间</span>
-                  <strong class="super-status-value" id="serverTimeText">--</strong>
-                  <span class="super-status-note">以接口返回时间为准</span>
+        <div class="row g-6 mb-8">
+          <div class="col-lg-8">
+            <div class="card super-glass-card super-tip-status-card h-100">
+              <div class="card-body p-6 p-md-7">
+                <div class="row g-4 align-items-stretch">
+                  <div class="col-lg-4 col-md-6">
+                    <div class="super-status-tile h-100">
+                      <span class="super-status-label">当前服务器时间</span>
+                      <strong class="super-status-value" id="serverTimeText">--</strong>
+                      <span class="super-status-note">以前端请求到的接口时间为准</span>
+                    </div>
+                  </div>
+                  <div class="col-lg-4 col-md-6">
+                    <div class="super-status-tile h-100">
+                      <span class="super-status-label">下一次提示图放出</span>
+                      <strong class="super-status-value" id="nextReleaseText">--</strong>
+                      <span class="super-status-note" id="releaseStatusText">等待接口数据...</span>
+                    </div>
+                  </div>
+                  <div class="col-lg-4 col-md-12">
+                    <div class="super-status-tile h-100">
+                      <span class="super-status-label">倒计时</span>
+                      <strong class="super-status-value super-countdown" id="countdownText">--:--:--</strong>
+                      <span class="super-status-note" id="progressText">已解锁 0 / 6 张</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="super-api-hint mt-4" id="apiHintText">
+                  页面需通过本地接口访问，请先使用 <code>node api/server.js</code> 启动服务再打开本页。
                 </div>
               </div>
-              <div class="col-lg-4 col-md-6">
-                <div class="super-status-tile h-100">
-                  <span class="super-status-label">下一次提示展示</span>
-                  <strong class="super-status-value" id="nextReleaseText">--</strong>
-                  <span class="super-status-note" id="releaseStatusText">等待接口数据...</span>
-                </div>
-              </div>
-              <div class="col-lg-4 col-md-12">
-                <div class="super-status-tile h-100">
-                  <span class="super-status-label">倒计时</span>
-                  <strong class="super-status-value super-countdown" id="countdownText">--:--:--</strong>
-                  <span class="super-status-note" id="progressText">已展示 0 / 6 张</span>
+            </div>
+          </div>
+
+          <div class="col-lg-4">
+            <div class="card super-side-card h-100">
+              <div class="card-body p-6">
+                <h5 class="mb-4">放出规则</h5>
+                <div class="super-info-list">
+                  <div class="super-info-item">
+                    <span class="super-info-title">活动开始</span>
+                    <span class="super-info-text">2026 年 4 月 17 日 20:30 正式开始。</span>
+                  </div>
+                  <div class="super-info-item">
+                    <span class="super-info-title">提示图首轮放出</span>
+                    <span class="super-info-text">2026 年 4 月 17 日 20:40 解锁第 1、2 张。</span>
+                  </div>
+                  <div class="super-info-item">
+                    <span class="super-info-title">放出节奏</span>
+                    <span class="super-info-text">之后每 10 分钟继续解锁 2 张，直到 6 张全部放完。</span>
+                  </div>
+                  <div class="super-info-item">
+                    <span class="super-info-title">查看方式</span>
+                    <span class="super-info-text">仅已解锁图片可点击查看大图。</span>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
+
         <div class="row g-6" id="tipsGrid" aria-live="polite"></div>
       </div>
     </main>
@@ -114,7 +150,7 @@
           <h4 class="mb-0" id="superLightboxTitle">图片预览</h4>
         </div>
         <div class="super-lightbox-body">
-          <img id="superLightboxImage" src="" alt="活动提示大图" />
+          <img id="superLightboxImage" src="" alt="活动提示图大图" />
         </div>
       </div>
     </div>
@@ -123,19 +159,19 @@
       <div class="container">
         <div class="super-footer-main">
           <div class="super-footer-brand">
-            <img src="./assets/img/super/logo.png" alt="Super Event logo" class="super-footer-logo" />
+            <img src="./assets/img/super/logo.png" alt="Super CC logo" class="super-footer-logo" />
             <div>
-              <h5 class="mb-2 text-white">Super Event</h5>
-              <p class="mb-0">活动开始后每10分钟解锁2张提示图。</p>
+              <h5 class="mb-2 text-white">Super CC</h5>
+              <p class="mb-0">提示图按服务器时间逐步放出。</p>
             </div>
           </div>
           <div class="super-footer-links">
-            <a href="./index.html">活动介绍</a>
-            <a href="./tips.html">活动提示</a>
+            <a href="./index.html">活动指南</a>
+            <a href="./tips.html">提示图</a>
             <a href="./signup.html">提交入口</a>
           </div>
         </div>
-        <div class="super-footer-bottom">&copy; 2026 Super Event</div>
+        <div class="super-footer-bottom">&copy; 2026 Super CC</div>
       </div>
     </footer>
 
@@ -183,10 +219,7 @@
           });
         });
 
-        window.addEventListener('resize', function () {
-          updateMenuOffset();
-        });
-
+        window.addEventListener('resize', updateMenuOffset);
         window.addEventListener('scroll', updateMenuOffset, { passive: true });
 
         document.addEventListener('click', function (event) {
@@ -278,11 +311,9 @@
           const hours = Math.floor((totalSeconds % 86400) / 3600);
           const minutes = Math.floor((totalSeconds % 3600) / 60);
           const seconds = totalSeconds % 60;
-          const timePart = [hours, minutes, seconds]
-            .map(function (value) {
-              return String(value).padStart(2, '0');
-            })
-            .join(':');
+          const timePart = [hours, minutes, seconds].map(function (value) {
+            return String(value).padStart(2, '0');
+          }).join(':');
 
           return days > 0 ? days + '天 ' + timePart : timePart;
         }
@@ -354,24 +385,24 @@
           if (!latestPayload) {
             return;
           }
+
           const nowMs = getServerNowMs();
-          const progressLabel = latestPayload.releasedCount + ' / ' + latestPayload.totalTips;
+          const progressLabel = latestPayload.releasedCount + ' / ' + latestPayload.totalTips + ' 张';
           serverTimeText.textContent = formatDateTime(nowMs);
-          progressText.textContent = '\u5df2\u5c55\u793a ' + progressLabel;
+          progressText.textContent = '已解锁 ' + progressLabel;
 
           if (latestPayload.releasedCount > 0) {
-            tipsHeadingText.textContent = '\u63d0\u793a\u56fe\u5df2\u89e3\u9501 ' + progressLabel;
+            tipsHeadingText.textContent = '提示图已解锁 ' + progressLabel;
           } else {
-            tipsHeadingText.textContent = '\u63d0\u793a\u56fe\u5373\u5c06\u89e3\u9501';
+            tipsHeadingText.textContent = '提示图即将解锁';
           }
 
           if (!latestPayload.nextReleaseAtMs) {
-            tipsHeadingText.textContent = '\u63d0\u793a\u56fe\u5df2\u5168\u90e8\u89e3\u9501 ' + progressLabel;
-            nextReleaseText.textContent = '\u672c\u8f6e\u5df2\u5168\u90e8\u5c55\u793a';
+            tipsHeadingText.textContent = '提示图已全部解锁 ' + progressLabel;
+            nextReleaseText.textContent = '本轮已全部展示';
             countdownText.textContent = '00:00:00';
-            releaseStatusText.textContent = '\u5168\u90e8 6 \u5f20\u63d0\u793a\u56fe\u5df2\u653e\u51fa\uff0c\u53ef\u4ee5\u76f4\u63a5\u67e5\u770b\u3002';
+            releaseStatusText.textContent = '全部 6 张提示图已放出，可以直接查看。';
             return;
-          
           }
 
           nextReleaseText.textContent = formatDateTime(latestPayload.nextReleaseAtMs);
@@ -407,7 +438,7 @@
             serverOffsetMs = payload.serverTimeMs - Date.now();
             renderTips(payload);
             updateStatusText();
-            showApiHint('当前页已接入后端接口，图片是否可见由服务器时间控制。', false);
+            showApiHint('页面已接入后端接口，图片是否可见由服务器时间控制。', false);
           } catch (error) {
             showApiHint('接口不可用，请先在当前目录执行 node api/server.js 再访问本页。', true);
             releaseStatusText.textContent = '暂时无法获取接口数据';
@@ -437,7 +468,7 @@
         });
 
         if (window.location.protocol === 'file:') {
-          showApiHint('你现在是直接打开 HTML 文件，/api 不会生效。请使用 node api/server.js 启动后访问 http://localhost:3000/tips.html。', true);
+          showApiHint('你现在是直接打开 HTML 文件，/api 不会生效。请先运行 node api/server.js，再访问 http://localhost:3000/tips.html。', true);
           return;
         }
 
