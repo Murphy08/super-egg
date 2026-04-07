@@ -73,7 +73,7 @@
           <span class="badge bg-label-warning super-badge mb-4">提示图放出</span>
           <h1 class="mb-3" id="tipsHeadingText">提示图即将解锁</h1>
           <p class="mb-0">
-            提示图将从 2026 年 4 月 17 日 20:40 开始放出。后端按服务器时间控制节奏，每 10 分钟解锁 2 张，共 6 张。
+            提示图将从 2026 年 4 月 17 日 20:40 开始放出。每 10 分钟解锁 2 张，共 6 张。
           </p>
         </div>
 
@@ -103,9 +103,6 @@
                       <span class="super-status-note" id="progressText">已解锁 0 / 6 张</span>
                     </div>
                   </div>
-                </div>
-                <div class="super-api-hint mt-4" id="apiHintText">
-                  页面需通过本地接口访问，请先使用 <code>node api/server.js</code> 启动服务再打开本页。
                 </div>
               </div>
             </div>
@@ -289,7 +286,6 @@
         const releaseStatusText = document.getElementById('releaseStatusText');
         const countdownText = document.getElementById('countdownText');
         const progressText = document.getElementById('progressText');
-        const apiHintText = document.getElementById('apiHintText');
         const tipsGrid = document.getElementById('tipsGrid');
         const lightbox = document.getElementById('superLightbox');
         const lightboxImage = document.getElementById('superLightboxImage');
@@ -322,10 +318,7 @@
           return Date.now() + serverOffsetMs;
         }
 
-        function showApiHint(message, isError) {
-          apiHintText.textContent = message;
-          apiHintText.classList.toggle('is-error', Boolean(isError));
-        }
+    
 
         function openLightbox(imageSrc, imageTitle) {
           lightboxImage.src = imageSrc;
@@ -437,10 +430,8 @@
             latestPayload = payload;
             serverOffsetMs = payload.serverTimeMs - Date.now();
             renderTips(payload);
-            updateStatusText();
-            showApiHint('页面已接入后端接口，图片是否可见由服务器时间控制。', false);
+            updateStatusText();    
           } catch (error) {
-            showApiHint('接口不可用，请先在当前目录执行 node api/server.js 再访问本页。', true);
             releaseStatusText.textContent = '暂时无法获取接口数据';
             countdownText.textContent = '--:--:--';
           } finally {
@@ -466,11 +457,6 @@
             closeLightbox();
           }
         });
-
-        if (window.location.protocol === 'file:') {
-          showApiHint('你现在是直接打开 HTML 文件，/api 不会生效。请先运行 node api/server.js，再访问 http://localhost:3000/tips.html。', true);
-          return;
-        }
 
         fetchTips();
         window.setInterval(updateStatusText, 1000);

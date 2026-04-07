@@ -7,7 +7,7 @@ const PORT = Number(process.env.PORT || 5999);
 const ROOT_DIR = path.resolve(__dirname, "..");
 const EVENT_TIME_ZONE = "Asia/Shanghai";
 const RELEASE_START_AT_MS = Date.parse("2026-04-17T20:40:00+08:00");
-// const RELEASE_START_AT_MS = Date.parse('2026-03-30T09:57:00+08:00');
+//const RELEASE_START_AT_MS = Date.parse("2026-04-07T11:23:00+08:00");
 const RELEASE_INTERVAL_MS = 10 * 60 * 1000;
 const RELEASE_BATCH_SIZE = 2;
 
