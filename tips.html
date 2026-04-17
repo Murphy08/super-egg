@@ -16,7 +16,7 @@
     <title>Super CC | 提示图</title>
     <meta
       name="description"
-      content="Super CC 复活节彩蛋活动提示图页，提示图将于 2026 年 4 月 17 日 20:40 起每 10 分钟放出 2 张。" />
+      content="Super CC 复活节彩蛋活动提示图页，提示图将于 2026 年 4 月 17 日 20:40 起每 10 分钟放出 1 张。" />
 
     <link rel="icon" type="image/png" href="./assets/img/super/logo.png" />
 
@@ -73,7 +73,7 @@
           <span class="badge bg-label-warning super-badge mb-4">提示图放出</span>
           <h1 class="mb-3" id="tipsHeadingText">提示图即将解锁</h1>
           <p class="mb-0">
-            提示图将从 2026 年 4 月 17 日 20:40 开始放出。每 10 分钟解锁 2 张，共 6 张。
+            提示图将从 2026 年 4 月 17 日 20:40 开始放出。每 10 分钟解锁 1 张，共 6 张。
           </p>
         </div>
 
@@ -119,11 +119,11 @@
                   </div>
                   <div class="super-info-item">
                     <span class="super-info-title">提示图首轮放出</span>
-                    <span class="super-info-text">2026 年 4 月 17 日 20:40 解锁第 1、2 张。</span>
+                    <span class="super-info-text">2026 年 4 月 17 日 20:40 解锁第 1 张。</span>
                   </div>
                   <div class="super-info-item">
                     <span class="super-info-title">放出节奏</span>
-                    <span class="super-info-text">之后每 10 分钟继续解锁 2 张，直到 6 张全部放完。</span>
+                    <span class="super-info-text">之后每 10 分钟继续解锁 1 张，直到 6 张全部放完。</span>
                   </div>
                   <div class="super-info-item">
                     <span class="super-info-title">查看方式</span>
@@ -403,9 +403,9 @@
           countdownText.textContent = formatCountdown(diffMs);
 
           if (latestPayload.status === 'pending') {
-            releaseStatusText.textContent = '首轮将在 2026-04-17 20:40（UTC+8）放出第 1、2 张提示图。';
+            releaseStatusText.textContent = '首轮将在 2026-04-17 20:40（UTC+8）放出第 1 张提示图。';
           } else {
-            releaseStatusText.textContent = '下一轮会再解锁 2 张提示图。';
+            releaseStatusText.textContent = '下一轮会再解锁 1 张提示图。';
           }
 
           if (diffMs <= 0 && !fetchInFlight) {
